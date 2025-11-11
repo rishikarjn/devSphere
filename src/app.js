@@ -1,40 +1,19 @@
 const express=require("express");
+const connectDB =require("./config/database");
 
 const app = express();
 
-app.get("/user",(req,res) =>{
-    res.send({ firstName: "Akshay", lastName: "Ranjan"
 
+connectDB()
+ .then(() =>{
+    console.log("Database connection established...");
+    app.listen(7777, () =>{
+        console.log("Server is successfully listening on port 7777...");
     });
-});
 
-app.get("/admin/getAllData",(req,res)=>{
-    const token="xyz";
-    const isAdminAuthorized = token ==="xyz";
-    if(isAdminAuthorized){
-        res.send("All Data Sent");
-    }
-    else{
-        res.status(401).send("Unauthorized request");
-    }
-});
-
-app.post("/user",(req,res)=>{
-    res.send("Data successfully saved to the database");
-});
-
-app.delete("/user",(req,res) =>{
-    res.send("Deleted Successfully!");
-})
-
- 
-app.use("/test",(req, res)=> {
-        res.send("Hello from the server");
-});
-
-app.listen(3000, () =>{
-    console.log("Server is successfully listening on port 3000...");
-
+ })
+.catch((err) => {
+    console.log("Database cannot be connected!!!");
 });
 
 
