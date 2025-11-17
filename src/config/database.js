@@ -2,10 +2,11 @@ const mongoose =require("mongoose");
 
 
 const connectDB = async ()=>{
-  await mongoose.connect(
+  return  mongoose.connect(
     "mongodb+srv://rishikasingh2109_db_user:RISHrish2123ika@devsphere.ezdk9or.mongodb.net/DevSphere"
 
   );
-}
+};
+
 module.exports = connectDB;
  
