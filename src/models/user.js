@@ -51,7 +51,32 @@ const userSchema =new mongoose.Schema({
     about:{
         type:String,
         default: "This is a default about of the user!",
-    },
+    }
+    
 });
+
+userSchema.methods.getJwt =async function(){
+    const user =this;
+
+    const token =await jwt.sign({_id:user._id},"DEV@Sphere$647",{
+        expiresIn:"7d",
+    });
+
+    return token;
+};
+
+userSchema.methodsvalidatePassword=async function (passwordInputByUser) {
+    const user=this;
+    const passwordHash =user.password;
+
+    const isPasswordValid =await bcrypt.compare(
+        passwordInputByUser,
+        passwordHash
+    );
+    return isPasswordValid;
+};
+
+
+
 
 module.exports=mongoose.model("User",userSchema);

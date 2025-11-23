@@ -56,7 +56,7 @@ app.post("/login",async(req,res) =>{
             //Create a JWT Token
             const token = await jwt.sign({_id:user._id}, "DEV@Sphere$647",{expiresIn: "1h"});
 
-            //Add the token to cookies ans send the response back to the user
+            //Add the token to cookies and send the response back to the user
             res.cookie("token",token,{ expires:new Date(Date.now() + 8 * 36000),
 
             });
